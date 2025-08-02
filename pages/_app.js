@@ -1,17 +1,25 @@
-import '../styles/globals.css';
-import { MDXProvider } from '@mdx-js/react';
+// File: pages/_app.js
+
+import '../styles/globals.css'
+import { Analytics } from '@vercel/analytics/next'
+import { MDXProvider } from '@mdx-js/react'
 
 const components = {
-  // You can customize MDX components here
-  // e.g. video: (props) => <video {...props} controls />
-};
+  // your custom MDX components go here
+}
 
 function MyApp({ Component, pageProps }) {
   return (
-    <MDXProvider components={components}>
-      <Component {...pageProps} />
-    </MDXProvider>
-  );
+    <>
+      {/* first, render your MDXProvider + page */}
+      <MDXProvider components={components}>
+        <Component {...pageProps} />
+      </MDXProvider>
+
+      {/* then, drop in the Analytics */}
+      <Analytics />
+    </>
+  )
 }
 
-export default MyApp;
+export default MyApp
