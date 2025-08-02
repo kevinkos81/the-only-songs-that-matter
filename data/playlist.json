@@ -1,0 +1,72 @@
+[
+  {
+    "url": "/audio/butterfly-collector.mp3",
+    "title": "The Butterfly Collector",
+    "artist": "The Jam",
+    "year": 1979,
+    "cover": "/covers/butterfly-collector.jpg"
+  },
+  {
+    "url": "/audio/jason-stop-wanking.mp3",
+    "title": "Jason Stop Wanking",
+    "artist": "Sleaford Mods",
+    "year": 2014,
+    "cover": "/covers/jason-stop-wanking.jpg"
+  },
+  {
+    "url": "/audio/nothing-compares-2-u.mp3",
+    "title": "Nothing Compares 2 U",
+    "artist": "Prince (Sinead O’Connor cover)",
+    "year": 1990,
+    "cover": "/covers/nothing-compares-2-u.jpg"
+  },
+  {
+    "url": "/audio/teenage-kicks.mp3",
+    "title": "Teenage Kicks",
+    "artist": "The Undertones",
+    "year": 1978,
+    "cover": "/covers/teenage-kicks.jpg"
+  },
+  {
+    "url": "/audio/wyoming.mp3",
+    "title": "Wyoming",
+    "artist": "Benjamin Tod",
+    "year": 2022,
+    "cover": "/covers/wyoming.jpg"
+  },
+   {
+    "url": "/audio/feel-this-way.mp3",
+    "title": "Feel This Way",
+    "artist": "Emmett O.C.",
+    "year": 2025,
+    "cover": "/covers/feel-this-way.jpg"
+  },
+  {
+    "url": "/audio/punkrocker.mp3",
+    "title": "Punkrocker",
+    "artist": "Teddy Bears ft. Iggy Pop",
+    "year": 2000,
+    "cover": "/covers/punkrocker.jpg"
+  },
+{
+    "url": "/audio/sheena-is-a-punk-rocker.mp3",
+    "title": "Sheena Is A Punk Rocker",
+    "artist": "Ramones",
+    "year": 1977,
+    "cover": "/covers/sheena-is-a-punk-rocker.jpg"
+  },
+  {
+    "url": "/audio/i-get-around.mp3",
+    "title": "I Get Around",
+    "artist": "The Beach Boys",
+    "year": 1964,
+    "cover": "/covers/i-get-around.jpg"
+  },
+  {
+    "url": "/audio/two-soldiers.mp3",
+    "title": "Two Soldiers",
+    "artist": "Bob Dylan",
+    "year": 1993,
+    "cover": "/covers/two-soldiers.jpg"
+  }
+]
