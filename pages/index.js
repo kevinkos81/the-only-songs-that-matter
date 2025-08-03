@@ -1,3 +1,4 @@
+// pages/index.js
 import React, { useState } from 'react'
 import fs from 'fs'
 import path from 'path'
@@ -5,17 +6,19 @@ import matter from 'gray-matter'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 import AudioPlayer from '../components/AudioPlayer'
-import SearchBar   from '../components/SearchBar'
+import SearchBar from '../components/SearchBar'
 
 export async function getStaticProps() {
   const postsDir = path.join(process.cwd(), 'posts')
-  const filenames = fs.readdirSync(postsDir).filter(f => f.endsWith('.mdx'))
+  const filenames = fs.readdirSync(postsDir).filter((f) =>
+    f.endsWith('.mdx')
+  )
 
   const posts = await Promise.all(
     filenames.map(async (filename) => {
       const slug = filename.replace(/\.mdx$/, '')
       const fullPath = path.join(postsDir, filename)
-      const raw      = fs.readFileSync(fullPath, 'utf8')
+      const raw = fs.readFileSync(fullPath, 'utf8')
       const { data: meta, content } = matter(raw)
       const contentState = await serialize(content)
       return { slug, meta, content: contentState }
@@ -25,21 +28,24 @@ export async function getStaticProps() {
   // Alphabetical order by title
   posts.sort((a, b) => a.meta.title.localeCompare(b.meta.title))
 
-  return { props: { posts } }
+  return {
+    props: { posts },
+  }
 }
 
 export default function Home({ posts }) {
+  // ← Hooks must be at top of component
   const [searchTerm, setSearchTerm] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  // Filter and re-sort posts alphabetically by title
+  // Filter + re-sort alphabetically
   const filtered = posts
     .filter(({ meta }) =>
       meta.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => a.meta.title.localeCompare(b.meta.title))
 
-  // Build playlist with safe paths
+  // Build playlist from meta/url fields
   const playlist = posts.map(({ slug, meta }) => {
     const audioUrl = meta.url
       ? meta.url.startsWith('/')
@@ -52,18 +58,19 @@ export default function Home({ posts }) {
       coverUrl = `/covers/${filename}`
     }
     return {
-      url:    audioUrl,
-      title:  meta.title,
+      url: audioUrl,
+      title: meta.title,
       artist: meta.artist,
-      year:   meta.year,
-      cover:  coverUrl,
+      year: meta.year,
+      cover: coverUrl,
     }
   })
 
+  // ---- JSX with balanced tags & responsive layout ----
   return (
-    <div className="flex h-screen">
-      {/* LEFT PANEL: Controlled AudioPlayer */}
-      <aside className="w-1/3 p-6 bg-gray-50 overflow-auto">
+    <div className="h-screen flex flex-col md:flex-row">
+      {/* PLAYER (mobile: first & full-width; desktop: 1/3) */}
+      <aside className="order-first w-full md:order-none md:w-1/3 p-6 bg-gray-50 overflow-auto">
         <AudioPlayer
           playlist={playlist}
           currentIndex={currentIndex}
@@ -71,9 +78,10 @@ export default function Home({ posts }) {
         />
       </aside>
 
-      {/* RIGHT PANEL: Search + Posts */}
-      <main className="w-2/3 p-6 overflow-auto space-y-8">
+      {/* POSTS (mobile: last & full-width; desktop: 2/3) */}
+      <main className="order-last w-full md:order-none md:w-2/3 p-6 overflow-auto space-y-8">
         <SearchBar onSearch={setSearchTerm} />
+
         {filtered.map(({ meta, content }, idx) => (
           <article key={idx}>
             <h1

@@ -17,7 +17,7 @@ export default function Layout({ children }) {
           </li>
         </ul>
       </nav>
-      <main className="pt-16 flex-1 flex flex-col">
+      <main className="pt-16 flex-1 flex flex-col md:flex-row">
         {children}
       </main>
     </div>
