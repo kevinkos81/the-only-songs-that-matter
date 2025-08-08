@@ -5,7 +5,7 @@ import path from 'path'
 import matter from 'gray-matter'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
-import AudioPlayerTop from '../components/AudioPlayerTop'
+import AudioPlayer from '../components/AudioPlayer'
 import SearchBar from '../components/SearchBar'
 
 export async function getStaticProps() {
@@ -65,7 +65,7 @@ export default function Home({ posts }) {
   return (
     <div className="h-screen flex flex-col">
       {/* FULL-WIDTH TOP PLAYER */}
-      <AudioPlayerTop
+      <AudioPlayer
         playlist={playlist}
         currentIndex={currentIndex}
         onTrackChange={setCurrentIndex}
