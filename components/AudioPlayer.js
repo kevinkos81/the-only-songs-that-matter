@@ -69,7 +69,7 @@ export default function AudioPlayer({
           <p className="text-gray-700 dark:text-gray-200 font-mono">{artist} • {year}</p>
         </div>
         {/* Track List (unchanged structure) */}
-        <div className="md:w-2/3 md:pl-6 overflow-auto max-h-80">
+        <div className="md:w-2/3 md:pl-6 overflow-auto md:max-h-80">
           <ul className="space-y-1">
             {playlist.map((track, idx) => (
               <li
@@ -88,9 +88,8 @@ export default function AudioPlayer({
       </div>
 
       {/* Controls & Timecode (unchanged) */}
-      <div className="mt-6 flex flex-col items-center">
-        <div className="flex items-center space-x-6 mb-4">
-          <button onClick={playPrev} className="w-12 h-12 bg-gray-400 rounded-full flex items-center justify-center shadow-inner hover:bg-gray-500">‹</button>
+      <div className="mt-6 flex flex-col items-center w-full">
+ <div className="flex flex-col sm:flex-row items-center sm:space-x-6 mb-4 w-full">          <button onClick={playPrev} className="w-12 h-12 bg-gray-400 rounded-full flex items-center justify-center shadow-inner hover:bg-gray-500">‹</button>
           <audio
             ref={audioRef}
             controls
@@ -99,13 +98,13 @@ export default function AudioPlayer({
             onLoadedMetadata={onLoadedMetadata}
             onTimeUpdate={onTimeUpdate}
             onEnded={playNext}
-            className="w-2/3 h-12"
+            className="w-full h-12"
           >
             Your browser does not support the audio element.
           </audio>
           <button onClick={playNext} className="w-12 h-12 bg-gray-400 rounded-full flex items-center justify-center shadow-inner hover:bg-gray-500">›</button>
         </div>
-        <div className="flex justify-between w-2/3 text-xs font-mono">
+        <div className="flex justify-between w-full text-xs font-mono">
           <span>{formatTime(currentTime)}</span>
           <span>-{formatTime(duration - currentTime)}</span>
         </div>

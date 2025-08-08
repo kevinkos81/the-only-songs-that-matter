@@ -5,14 +5,14 @@ import path from 'path'
 import matter from 'gray-matter'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
-import AudioPlayer from '../components/AudioPlayer'
+import AudioPlayerTop from '../components/AudioPlayerTop'
 import SearchBar from '../components/SearchBar'
 
 export async function getStaticProps() {
   const postsDir = path.join(process.cwd(), 'posts')
-  const filenames = fs.readdirSync(postsDir).filter((f) =>
-    f.endsWith('.mdx')
-  )
+  const filenames = fs
+    .readdirSync(postsDir)
+    .filter((f) => f.endsWith('.mdx'))
 
   const posts = await Promise.all(
     filenames.map(async (filename) => {
@@ -25,27 +25,23 @@ export async function getStaticProps() {
     })
   )
 
-  // Alphabetical order by title
   posts.sort((a, b) => a.meta.title.localeCompare(b.meta.title))
 
-  return {
-    props: { posts },
-  }
+  return { props: { posts } }
 }
 
 export default function Home({ posts }) {
-  // ← Hooks must be at top of component
   const [searchTerm, setSearchTerm] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  // Filter + re-sort alphabetically
+  // filter + sort
   const filtered = posts
     .filter(({ meta }) =>
       meta.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => a.meta.title.localeCompare(b.meta.title))
 
-  // Build playlist from meta/url fields
+  // build playlist
   const playlist = posts.map(({ slug, meta }) => {
     const audioUrl = meta.url
       ? meta.url.startsWith('/')
@@ -66,20 +62,17 @@ export default function Home({ posts }) {
     }
   })
 
-  // ---- JSX with balanced tags & responsive layout ----
   return (
-    <div className="h-screen flex flex-col md:flex-row">
-      {/* PLAYER (mobile: first & full-width; desktop: 1/3) */}
-      <aside className="order-first w-full md:order-none md:w-1/3 p-6 bg-gray-50 overflow-auto">
-        <AudioPlayer
-          playlist={playlist}
-          currentIndex={currentIndex}
-          onTrackChange={setCurrentIndex}
-        />
-      </aside>
+    <div className="h-screen flex flex-col">
+      {/* FULL-WIDTH TOP PLAYER */}
+      <AudioPlayerTop
+        playlist={playlist}
+        currentIndex={currentIndex}
+        onTrackChange={setCurrentIndex}
+      />
 
-      {/* POSTS (mobile: last & full-width; desktop: 2/3) */}
-      <main className="order-last w-full md:order-none md:w-2/3 p-6 overflow-auto space-y-8">
+      {/* POSTS: scrollable under player */}
+      <main className="flex-1 overflow-auto p-6 space-y-8">
         <SearchBar onSearch={setSearchTerm} />
 
         {filtered.map(({ meta, content }, idx) => (
